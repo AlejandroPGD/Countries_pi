@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const axios = require(('axios'));
+const axios = require('axios');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const { Op } = require('sequelize');
@@ -13,7 +13,7 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-//GET /countries:
+
 const countries = async () => {
     const restcountries = await axios.get("https://restcountries.com/v3/all");
     //console.log("respuesta de la api", restcountries.data);
@@ -60,7 +60,13 @@ router.get('/countries/:id', async (req, res) => {
     const id = req.params.id;
 
     try {
-        let countriesFound = await Country.findByPk(id);
+        let countriesFound = await Country.findByPk(id, {
+            include: [
+                {
+                    model: Sightseeing,
+                }
+            ],
+        });
         return res.json(countriesFound);
     } catch (error) {
         console.log(error);
@@ -68,7 +74,7 @@ router.get('/countries/:id', async (req, res) => {
 });
 
 
-
+//GET /countries:
 //?retorna listado de paises
 router.get('/countries', async (req, res) => {
 
@@ -79,7 +85,7 @@ router.get('/countries', async (req, res) => {
             name: c.name.common,
             flag: c.flags[0],
             region: c.region,
-            subregion: c.subregion || "Antarctica",
+            subregion: c.subregion || "Antartica",
             capital: c.capital ? c.capital[0] : "none",
             area: c.area,
             population: c.population,
@@ -96,23 +102,29 @@ router.get('/countries', async (req, res) => {
         let thereSightseeing = await Sightseeing.findAll();
         //console.log("there", there);
         if (!there.length) await Country.bulkCreate(api);
-        if (!thereSightseeing.length) await Sightseeing.bulkCreate(sightseeing);
+        if (!thereSightseeing.length) {
+            await Sightseeing.bulkCreate(sightseeing);
+            //pongo actividades turisticas aleatoreas a cada pais
+            let arrayCountries = await Country.findAll();
+            arrayCountries.map(c => c.setSightseeings(Math.round(Math.random() * 4 + 1)));
+            // const paisaux = await Country.findByPk("COL");
+            // console.log(paisaux);
+            // await paisaux.setSightseeings(2)
+        }
         //console.log("countries", await Country.findAll());
     } catch (error) {
         console.log(error)
     }
-    //pongo actividades turisticas aleatoreas a cada pais
-    let arrayCountries = await Country.findAll();
-    arrayCountries.map(c => c.setSightseeings(Math.round(Math.round(Math.random() * 4) + 1)))
-    // const paisaux = await Country.findByPk("COL");
-    // console.log(paisaux);
-    // await paisaux.setSightseeings(2)
+
 
     // GET /countries?name="...":
 
     //?si llega algun name por query  retorna solo los paises que coincidan
 
-    const { name, filter, page, order, typeOrder } = req.query;
+    let { name, filter, page, order, typeOrder } = req.query;
+
+    order = order ? order : 'ASC';
+    typeOrder = typeOrder ? typeOrder : 'name';
     //name: buscar por nombre
     //filter: filtra por continente
     //page: paginado
@@ -128,31 +140,29 @@ router.get('/countries', async (req, res) => {
                         [Op.iLike]: '%' + name + '%',
                     },
                 },
+                attributes: ['name', 'flag', 'region', 'id', 'population'],
                 limit: 9,
                 offset: page ? page : 0,
-                order: order ? [[typeOrder, order]] : [[typeOrder]] || [["name"]],
-                include: { model: Sightseeing },
+                order: [[typeOrder, order]],
+                //include: { model: Sightseeing },
             });
             return res.json(countriesFound);
         } catch (error) {
             console.log(error);
         }
-
-
         //     //?filtrado por continente   
         //     //todo la actividad turistica voy a filtrarla en el front
     } else if (filter) {
-
-
         try {
             let countriesFound = await Country.findAll({
                 where: {
                     region: filter,
                 },
+                attributes: ['name', 'flag', 'region', 'id', 'population'],
                 limit: 9,
                 offset: page ? page : 0,
-                order: order ? [[typeOrder, order]] : [[typeOrder]] || [["name"]],
-                include: { model: Sightseeing },
+                order: [[typeOrder, order]],
+                //include: { model: Sightseeing },
             });
             return res.json(countriesFound);
         } catch (error) {
@@ -160,11 +170,12 @@ router.get('/countries', async (req, res) => {
         }
     } else {
         try {
+            console.log()
             let countriesFound = await Country.findAll({
                 attributes: ['name', 'flag', 'region', 'id', 'population'],
                 limit: 9,
                 offset: page ? page : 0,
-                //order: order ? [[typeOrder, order]] : [[typeOrder]] || [["name"]],
+                order: [[typeOrder, order]],
                 //include: { model: Sightseeing },
             });
             return res.json(countriesFound);
@@ -191,10 +202,7 @@ router.post('/activities', async (req, res) => {
             },
         });
 
-
         await act.addCountries(activity.countryId);
-
-
 
         res.json(act)
     } catch (error) {
