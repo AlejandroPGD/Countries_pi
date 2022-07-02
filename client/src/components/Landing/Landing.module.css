@@ -1,0 +1,58 @@
+.landing {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.bkg {
+
+    backdrop-filter: blur(10px);
+    width: 100vw;
+    height: 100vh;
+    background-color: #d1cdb2;
+}
+
+.container {
+    width: 99vw;
+    height: 99vh;
+    margin: 0.5vh 0.5vw;
+    /* top: 0; */
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-rows: repeat(11, 1fr);
+
+}
+
+.landing,
+.container {
+    background-image: url("../../assets/bkg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    border-radius: 0.5rem;
+}
+
+.buttonContainer {
+    display: flex;
+    height: 12vh;
+    width: 25vh;
+    background-color: rgba(255, 255, 255, 0.151);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    grid-row: 6/7;
+    grid-column: 6/7;
+    justify-content: center;
+    align-items: center;
+    /* position: relative; */
+
+
+}
+
+
+.btn {
+    display: flex;
+    font-size: large;
+
+}

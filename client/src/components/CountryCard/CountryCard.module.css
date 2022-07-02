@@ -1,0 +1,15 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 10rem;
+    height: 25vh;
+    color: blue;
+}
+
+.card>img {
+    width: 10rem;
+    height: 15rem;
+
+}

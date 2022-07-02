@@ -67,11 +67,14 @@ router.get('/countries/:id', async (req, res) => {
                 }
             ],
         });
+
+        if (!countriesFound) return res.status(404).send('No se encontró el pais');
         return res.json(countriesFound);
     } catch (error) {
         console.log(error);
     }
 });
+
 
 
 //GET /countries:
@@ -121,32 +124,57 @@ router.get('/countries', async (req, res) => {
 
     //?si llega algun name por query  retorna solo los paises que coincidan
 
-    let { name, filter, page, order, typeOrder } = req.query;
+    let { name, filter, page, order, typeOrder, limit } = req.query;
 
     order = order ? order : 'ASC';
     typeOrder = typeOrder ? typeOrder : 'name';
+    limit = limit ? limit : 9;
     //name: buscar por nombre
     //filter: filtra por continente
     //page: paginado
     // order: ascendente o descendente
     //typeOrder: por nombre o por cantidad de poblacion
-
+    //console.log("name en api", req.query)
 
     if (name) {
         try {
-            let countriesFound = await Country.findAll({
-                where: {
-                    name: {
-                        [Op.iLike]: '%' + name + '%',
+            if (filter) {
+                let countriesFound = await Country.findAll({
+                    where: {
+                        name: {
+                            [Op.iLike]: '%' + name + '%',
+                        },
+                        region: filter
+
                     },
-                },
-                attributes: ['name', 'flag', 'region', 'id', 'population'],
-                limit: 9,
-                offset: page ? page : 0,
-                order: [[typeOrder, order]],
-                //include: { model: Sightseeing },
-            });
-            return res.json(countriesFound);
+                    attributes: ['name', 'flag', 'region', 'id', 'population'],
+                    limit: limit,
+                    offset: page ? page : 0,
+                    order: [[typeOrder, order]],
+
+                    include: { model: Sightseeing },
+                });
+                if (!countriesFound.length) return res.status(404).send('No se encontró el pais');
+                return res.status(200).send(countriesFound)
+            } else {
+                let countriesFound = await Country.findAll({
+                    where: {
+                        name: {
+                            [Op.iLike]: '%' + name + '%',
+                        },
+
+                    },
+                    attributes: ['name', 'flag', 'region', 'id', 'population'],
+                    limit: limit,
+                    offset: page ? page : 0,
+                    order: [[typeOrder, order]],
+                    include: { model: Sightseeing },
+                });
+                if (!countriesFound.length) return res.status(404).send('No se encontró el pais');
+                return res.status(200).send(countriesFound)
+            }
+            //return res.status(200).send(countriesFound);//res.json(countriesFound);
+
         } catch (error) {
             console.log(error);
         }
@@ -159,29 +187,57 @@ router.get('/countries', async (req, res) => {
                     region: filter,
                 },
                 attributes: ['name', 'flag', 'region', 'id', 'population'],
-                limit: 9,
+                limit: limit,
                 offset: page ? page : 0,
                 order: [[typeOrder, order]],
-                //include: { model: Sightseeing },
+                include: { model: Sightseeing },
             });
-            return res.json(countriesFound);
+            return res.status(200).send(countriesFound)//res.json(countriesFound);
         } catch (error) {
             console.log(error);
         }
     } else {
         try {
-            console.log()
             let countriesFound = await Country.findAll({
                 attributes: ['name', 'flag', 'region', 'id', 'population'],
-                limit: 9,
+                limit: limit,
                 offset: page ? page : 0,
                 order: [[typeOrder, order]],
-                //include: { model: Sightseeing },
+                include: { model: Sightseeing },
             });
-            return res.json(countriesFound);
+            //return res.status(200).send(countriesFound)//res.json(countriesFound);
+            if (!countriesFound.length) return res.status(404).send('No hay paises en la base de datos');
+            return res.status(200).send(countriesFound)
         } catch (error) {
             console.log(error);
+
         }
+    }
+})
+
+//GET/activities
+
+router.get('/sightseeing', async (req, res) => {
+    try {
+        const sightseeing = await Sightseeing.findAll({ attributes: ['name'] });
+        if (!sightseeing.length) return res.status(404).send('No hay actividades turisticas  en la base de datos');
+        return res.status(200).send(sightseeing);
+
+    } catch (error) {
+        console.log(error);
+    }
+})
+router.get('/allCountries', async (req, res) => {
+    try {
+        const countries = await Country.findAll({
+            attributes: ['name', 'id'],
+            order: [['name', 'ASC']],
+        });
+        if (!countries.length) return res.status(404).send('No hay paises  en la base de datos');
+        return res.status(200).send(countries);
+
+    } catch (error) {
+        console.log(error);
     }
 })
 
@@ -191,6 +247,7 @@ router.get('/countries', async (req, res) => {
 router.post('/activities', async (req, res) => {
 
     const activity = req.body;
+    //console.log("esto llega por el body", activity);
     //todo debe llegar name, difficulty, duration, season, countryId
     try {
         let [act, created] = await Sightseeing.findOrCreate({

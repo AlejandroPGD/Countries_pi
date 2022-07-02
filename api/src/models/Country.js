@@ -23,7 +23,7 @@ module.exports = (sequelize) => {
     },
     subregion: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     capital: {
       type: DataTypes.STRING,
@@ -31,11 +31,11 @@ module.exports = (sequelize) => {
     },
     area: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     population: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
   }, {
     timestamps: false,
