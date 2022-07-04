@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { getCountries, getActivities, activitiesUpdate } from '../../actions';
 import CountryCard from '../CountryCard/CountryCard';
 import SearchBar from '../SearchBar/SearchBar';
+import styles from "./Home.module.css"
 
 function Home() {
     const dispatch = useDispatch();
@@ -163,75 +164,101 @@ function Home() {
     const allActivities = useSelector((state) => state.activities);
     const allCountries = useSelector((state) => state.countries);
     return (
-        <div>
-            <div>
-                <NavLink to='/activities'>Crear Actividad Turística</NavLink>
-            </div>
-            <div>
-                <SearchBar />
-            </div>
-            <div>
-                <button onClick={(event) => {
-                    handleClick(event);
-                }}>Cargar Todos Los Países</button>
-            </div>
-            <div>
-                <h5>Filtrar por Continente</h5>
-                <select name="filter" value="filter" onChange={(e) => handleOnChange(e)}>
-                    <option value=""></option>
-                    <option value="">Todos</option>
-                    <option value="Americas">América</option>
-                    <option value="Africa">África</option>
-                    <option value="Asia">Asia</option>
-                    <option value="Europe">Europa</option>
-                    <option value="Oceania">Oceanía</option>
-
-                </select>
-            </div>
-            <div>
-                <h5>actividades turisticas</h5>
-                <select name="selectActivities" value="selectActivities" onChange={(e) => handleActivitiesChange(e)}>
-                    <option value=""></option>
-                    <option value="">Todos</option>
-                    {
-                        allActivities?.map(e => <option key={e.name} value={e.name}>{e.name}</option>)
-                    }
-                </select>
-            </div>
-            <div onChange={(e) => handleOnChange(e)}>
-                <input type="radio" value="ASC" name="order" checked={input.order === "ASC"} /> Ascendente
-                <input type="radio" value="DESC" name="order" checked={input.order === "DESC"} /> Descendente
-            </div>
-
-            <div>
-                <h5>tipo</h5>
-                <select name="typeOrder" value="typeOrder" onChange={(e) => handleOnChange(e)}>
-                    <option value="">tipo</option>
-                    <option value="name">Nombre</option>
-                    <option value="population">Poblacion</option>
-                </select>
-            </div>
-            {input.wait ? fil.activityFilter.map(c => {
-                return (
-                    <div key={c.id}>
-                        <NavLink to={`/home/${c.id}`}>
-                            <CountryCard name={c.name} flag={c.flag} region={c.region} sightseeings={c.sightseeings} />
-                        </NavLink>
+        <div className={styles.home}>
+            <div className={styles.bkg}>
+                <div className={styles.container}>
+                    <div className={styles.linkContainer}>
+                        <NavLink to='/activities'><h3>Crear Actividad Turística</h3></NavLink>
                     </div>
-                )
-            }) : allCountries?.map(c => {
-                return (
-                    <div key={c.id}>
-                        <p></p>
-                        <NavLink to={`/home/${c.id}`}>
-                            <p></p>
-                            <CountryCard name={c.name} flag={c.flag} region={c.region} sightseeings={c.sightseeings} />
-                        </NavLink>
+                    <div className={styles.searchContainer}>
+                        <SearchBar />
                     </div>
-                )
-            })}
-            <button onClick={e => prev(e)} disabled={input.page <= 0}>{"<--"}</button>
-            <button onClick={e => next(e)} disabled={allCountries.length < 9}>{"-->"}</button>
+                    <div className={styles.loadContainer}>
+                        <button className={styles.btn} onClick={(event) => {
+                            handleClick(event);
+                        }}>Cargar Todos Los Países</button>
+                    </div>
+                    <div className={styles.filtContinenteContainer}>
+                        <div>
+                            <select name="filter" value="filter" onChange={(e) => handleOnChange(e)}>
+                                <option value=""></option>
+                                <option value="">Todos</option>
+                                <option value="Americas">América</option>
+                                <option value="Africa">África</option>
+                                <option value="Asia">Asia</option>
+                                <option value="Europe">Europa</option>
+                                <option value="Oceania">Oceanía</option>
+                            </select>
+                        </div>
+                        <div>
+                            <h3>Filtrar por Continente</h3>
+                        </div>
+
+
+                    </div>
+                    <div className={styles.filtActivitiesContainer}>
+                        <div>
+                            <select name="selectActivities" value="selectActivities" onChange={(e) => handleActivitiesChange(e)}>
+                                <option value=""></option>
+                                <option value="">Todos</option>
+                                {
+                                    allActivities?.map(e => <option key={e.name} value={e.name}>{e.name}</option>)
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <h3>Actividades Turísticas</h3>
+                        </div>
+                    </div>
+                    <div className={styles.radioContainer} onChange={(e) => handleOnChange(e)}>
+                        <div className={styles.radioOpt}>
+                            <input type="radio" value="ASC" name="order" checked={input.order === "ASC"} /> <h3>Ascendente</h3>
+                            <input type="radio" value="DESC" name="order" checked={input.order === "DESC"} /><h3><prev>Descendente</prev></h3>
+                        </div>
+                        <div>
+                            <h3>Orden</h3>
+                        </div>
+                    </div>
+
+                    <div className={styles.tipeContainer}>
+                        <div>
+                            <select name="typeOrder" value="typeOrder" onChange={(e) => handleOnChange(e)}>
+                                <option value="">tipo</option>
+                                <option value="name">Nombre</option>
+                                <option value="population">Poblacion</option>
+                            </select>
+                        </div>
+                        <div>
+                            <h3>Tipo</h3>
+                        </div>
+                    </div>
+                    <div className={styles.countriesContainer}>
+                        {input.wait ? fil.activityFilter.map(c => {
+                            return (
+                                <div key={c.id}>
+                                    <NavLink to={`/home/${c.id}`}>
+                                        <CountryCard name={c.name} flag={c.flag} region={c.region} sightseeings={c.sightseeings} />
+                                    </NavLink>
+                                </div>
+                            )
+                        }) : allCountries?.map(c => {
+                            return (
+                                <div key={c.id}>
+                                    <NavLink to={`/home/${c.id}`}>
+                                        <CountryCard name={c.name} flag={c.flag} region={c.region} sightseeings={c.sightseeings} />
+                                    </NavLink>
+                                </div>
+                            )
+                        })}
+                    </div>
+                    <div className={styles.backContainer}>
+                        <button className={styles.btnBN} onClick={e => prev(e)} disabled={input.page <= 0}>{"<"}</button>
+                    </div>
+                    <div className={styles.nextContainer}>
+                        <button className={styles.btnBN} onClick={e => next(e)} disabled={allCountries.length < 9}>{">"}</button>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

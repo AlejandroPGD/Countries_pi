@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { changeName } from "../../actions";
+import styles from "./SearchBar.module.css"
 
 
 export default function SearchBar() {
@@ -48,15 +49,20 @@ export default function SearchBar() {
         dispatch(changeName(input.name));
     }
     return (
-        <div>
-            <input
-                type="text"
-                placeholder="Buscar..."
-                name='name'
-                onChange={handleOnChange}
-                value={input.name}>
-            </input>
-            <button onClick={e => handleClick(e)}>Buscar</button>
+        <div className={styles.searchbar}>
+            <div>
+                <input
+                    type="text"
+                    placeholder="Buscar..."
+                    name='name'
+                    onChange={handleOnChange}
+                    value={input.name}>
+                </input>
+            </div>
+
+            <div>
+                <button className={styles.btn} onClick={e => handleClick(e)}>Buscar</button>
+            </div>
         </div>
     )
 }

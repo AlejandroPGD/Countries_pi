@@ -1,0 +1,179 @@
+.activity {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.bkg {
+
+    backdrop-filter: blur(10px);
+    width: 100vw;
+    height: 100vh;
+    background-color: #d1cdb2;
+}
+
+.container {
+    width: 99vw;
+    height: 99vh;
+    margin: 0.5vh 0.5vw;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    /* border: solid 2px rgb(38, 38, 241); */
+
+}
+
+.activity,
+.container {
+    background-image: url("../../assets/bkg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    border-radius: 0.5rem;
+}
+
+.nameContainer {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 2/3;
+    grid-column: 4/10;
+    justify-content: left;
+    align-items: center;
+
+}
+
+.difficultyContainer {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 4/5;
+    grid-column: 4/10;
+    justify-content: left;
+    align-items: center;
+
+}
+
+.durationContainer {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 6/7;
+    grid-column: 4/10;
+    justify-content: left;
+    align-items: center;
+
+}
+
+.seasonContainer {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 8/9;
+    grid-column: 4/10;
+    justify-content: left;
+    align-items: center;
+
+}
+
+.countriesContainer {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 10/11;
+    grid-column: 4/10;
+    justify-content: left;
+    align-items: center;
+
+}
+
+.countriesSelectedContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 2/11;
+    grid-column: 11/12;
+}
+
+.etiButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.backButton {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 2/3;
+    grid-column: 2/3;
+    justify-content: center;
+    align-items: center;
+}
+
+.subButton {
+    display: flex;
+    /* background-color: rgba(255, 255, 255, 0.093); */
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 10/11;
+    grid-column: 2/3;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    display: flex;
+    font-size: large;
+
+}
+
+
+
+
+.nameContainer>h2 {
+    color: red;
+}
+
+.difficultyContainer>h2 {
+    color: red;
+}
+
+.durationContainer>h2 {
+    color: red;
+}
+
+.seasonContainer>h2 {
+    color: red;
+}
+
+.countriesContainer>h2 {
+    color: red;
+}
+
+
+
+label,
+span {
+    color: azure;
+    size: 10px;
+}

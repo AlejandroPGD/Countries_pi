@@ -1,0 +1,196 @@
+.home {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.bkg {
+
+    backdrop-filter: blur(10px);
+    width: 100vw;
+    height: 100vh;
+    background-color: #d1cdb2;
+}
+
+.container {
+    width: 99vw;
+    height: 99vh;
+    margin: 0.5vh 0.5vw;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    /* border: solid 2px rgb(38, 38, 241); */
+
+}
+
+.home,
+.container {
+    background-image: url("../../assets/bkg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    border-radius: 0.5rem;
+}
+
+.searchContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    border: solid 2px rgb(38, 38, 241); */
+    grid-row: 1/2;
+    grid-column: 10/13;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.linkContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    border: solid 2px rgb(38, 38, 241);
+    grid-row: 2/3;
+    grid-column: 10/13;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.loadContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    border: solid 2px rgb(38, 38, 241);
+    grid-row: 2/3;
+    grid-column: 1/3;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.filtContinenteContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    border: solid 2px rgb(38, 38, 241); */
+    grid-row: 1/3;
+    grid-column: 3/5;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.filtActivitiesContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    border: solid 2px rgb(38, 38, 241); */
+    grid-row: 1/3;
+    grid-column: 5/7;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.tipeContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    border: solid 2px rgb(38, 38, 241); */
+    grid-row: 1/3;
+    grid-column: 7/9;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.radioContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    border: solid 2px rgb(38, 38, 241); */
+    grid-row: 1/3;
+    grid-column: 9/10;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.backContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 8/9;
+    grid-column: 1/2;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.nextContainer {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 8/9;
+    grid-column: 12/13;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.countriesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px);
+    /* border: solid 2px rgb(38, 38, 241); */
+    grid-row: 3/13;
+    grid-column: 2/12;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.radioOpt {
+    display: flex;
+    flex-direction: row;
+}
+
+.radioContainer>h3 {
+    color: white;
+}
+
+.btn {
+    display: flex;
+    font-size: large;
+
+}
+
+.btnBN {
+    display: flex;
+    font-size: xx-large;
+
+}

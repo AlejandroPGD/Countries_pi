@@ -1,15 +1,20 @@
-.card {
+.cardContainer {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    width: 10rem;
-    height: 25vh;
-    color: blue;
+    width: 24rem;
+    height: 8rem;
+    /* background-color: rgba(255, 255, 255, 0.093);
+    border-radius: 0.5rem;
+    backdrop-filter: blur(4px); */
+    /* border: solid 2px rgb(38, 38, 241); */
+    color: white;
+    margin: 1rem;
+
 }
 
-.card>img {
-    width: 10rem;
-    height: 15rem;
+.cardContainer>img {
+    width: 12rem;
+    height: 6rem;
+    margin: 1rem;
 
 }
