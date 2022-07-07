@@ -9,7 +9,7 @@ export default function CountryCard({ name, flag, region, sightseeings }) {
             <div>
                 <h3>País: {name}</h3>
                 <h5>Continente: {region}</h5>
-                <div>Actividades Turísticas: {sightseeings?.map(c => <prev>{c.name}. </prev>)}</div>
+                <div>Actividades Turísticas: {sightseeings?.map(c => <div key={c.id}><prev>{c.name}. </prev></div>)}</div>
 
             </div>
         </div>

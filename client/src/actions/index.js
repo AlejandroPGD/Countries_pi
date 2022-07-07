@@ -10,18 +10,7 @@ export const SET_ACTIVITIES = "SET_ACTIVITIES";
 export const ACTIVITIES_UPDATE = "ACTIVITIES_UPDATE";
 //export const GET_COUNTRIES_BY_NAME = "GET_COUNTRIES_BY_NAME";
 
-export function changeName(name) {
-    return {
-        type: CHANGE_NAME,
-        payload: name,
-    }
-}
-export function activitiesUpdate(updated) {
-    return {
-        type: ACTIVITIES_UPDATE,
-        payload: updated,
-    }
-}
+
 
 export function getCountries({ name, filter, page, order, typeOrder, limit }) {
     // console.log("despacha este nombre", name)
@@ -34,6 +23,7 @@ export function getCountries({ name, filter, page, order, typeOrder, limit }) {
                 payload: [json.data, name, page, order, filter, typeOrder, limit]
             })
         } catch (error) {
+            alert("No encontrado");
             console.log(error);
         }
     }
@@ -63,6 +53,7 @@ export function getDetails(id) {
                 payload: json.data,
             })
         } catch (error) {
+            alert("No existe");
             console.log(error);
         }
     }
@@ -92,5 +83,18 @@ export function setActivities(body) {
         } catch (error) {
             console.log(error);
         }
+    }
+}
+
+export function changeName(name) {
+    return {
+        type: CHANGE_NAME,
+        payload: name,
+    }
+}
+export function activitiesUpdate(updated) {
+    return {
+        type: ACTIVITIES_UPDATE,
+        payload: updated,
     }
 }

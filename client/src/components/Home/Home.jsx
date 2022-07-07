@@ -163,6 +163,12 @@ function Home() {
 
     const allActivities = useSelector((state) => state.activities);
     const allCountries = useSelector((state) => state.countries);
+
+    //? *********************************************************************************
+    //? *********************************************************************************
+    //? *********************************************************************************
+    //? *********************************************************************************
+
     return (
         <div className={styles.home}>
             <div className={styles.bkg}>
@@ -181,7 +187,7 @@ function Home() {
                     <div className={styles.filtContinenteContainer}>
                         <div>
                             <select name="filter" value="filter" onChange={(e) => handleOnChange(e)}>
-                                <option value=""></option>
+                                <option value="">{input.filter} </option>
                                 <option value="">Todos</option>
                                 <option value="Americas">América</option>
                                 <option value="Africa">África</option>
@@ -199,7 +205,7 @@ function Home() {
                     <div className={styles.filtActivitiesContainer}>
                         <div>
                             <select name="selectActivities" value="selectActivities" onChange={(e) => handleActivitiesChange(e)}>
-                                <option value=""></option>
+                                <option value="">{input.activity}</option>
                                 <option value="">Todos</option>
                                 {
                                     allActivities?.map(e => <option key={e.name} value={e.name}>{e.name}</option>)
@@ -210,10 +216,10 @@ function Home() {
                             <h3>Actividades Turísticas</h3>
                         </div>
                     </div>
-                    <div className={styles.radioContainer} onChange={(e) => handleOnChange(e)}>
-                        <div className={styles.radioOpt}>
-                            <input type="radio" value="ASC" name="order" checked={input.order === "ASC"} /> <h3>Ascendente</h3>
-                            <input type="radio" value="DESC" name="order" checked={input.order === "DESC"} /><h3><prev>Descendente</prev></h3>
+                    <div className={styles.radioContainer} >
+                        <div className={styles.radioOpt} >
+                            <input type="radio" value="ASC" name="order" checked={input.order === "ASC"} onChange={(e) => handleOnChange(e)} /> <h3>Ascendente</h3>
+                            <input type="radio" value="DESC" name="order" checked={input.order === "DESC"} onChange={(e) => handleOnChange(e)} /><h3><prev>Descendente</prev></h3>
                         </div>
                         <div>
                             <h3>Orden</h3>
@@ -223,7 +229,7 @@ function Home() {
                     <div className={styles.tipeContainer}>
                         <div>
                             <select name="typeOrder" value="typeOrder" onChange={(e) => handleOnChange(e)}>
-                                <option value="">tipo</option>
+                                <option value="">{input.typeOrder}</option>
                                 <option value="name">Nombre</option>
                                 <option value="population">Poblacion</option>
                             </select>

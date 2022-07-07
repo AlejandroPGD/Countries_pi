@@ -38,11 +38,19 @@ function Activity(props) {
         season: "",
         countryId: [],
         allNames: [],
+        created: false
     })
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(setActivities(input));
         dispatch(activitiesUpdate(true));
+        setInput((prevInput) => {
+            return {
+                ...prevInput,
+                created: true,
+
+            }
+        })
     }
     useEffect(() => {
         validate();
@@ -56,12 +64,14 @@ function Activity(props) {
                 return {
                     ...prevInput,
                     countryId: [...input.countryId, event.target.value],
+                    created: false,
 
                 }
             }
             return {
                 ...prevInput,
                 [event.target.name]: event.target.value,
+                created: false,
             }
         });
     }
@@ -73,7 +83,8 @@ function Activity(props) {
         let errorSeason = "";
         let errorPaises = "";
 
-        if (!/^\D{1,50}$/.test(input.name)) errorName = "Debe ingresar un nombre";
+        //if (/\d|\W/.test(input.name) || input.name[0] === " " || input.name === "") errorName = "Debe ingresar un nombre";
+        if (!/^[a-zA-Z ]{0,30}$/.test(input.name) || input.name[0] === " " || input.name === "") errorName = "Debe ingresar un nombre";
         if (!/^[1-5]{1}$/.test(input.difficulty)) errorDifficulty = "Debe ingresar entre 1-5";
         if (!/^\d{1,2}$/.test(input.duration)) errorDuration = "Debe ingresar cantidad de horas";
         if (input.season === "") errorSeason = "Debe seleccionar una temporada";
@@ -180,6 +191,10 @@ function Activity(props) {
                     <button className={styles.btn} type="submit" disabled={error.errorName || error.errorDifficulty || error.errorDuration || error.errorSeason || error.errorPaises}>
                         Crear nueva actividad turística
                     </button>
+                    <div >
+
+                        {input.created ? <h2><pre>Creada con éxito</pre></h2> : <h2><pre>          </pre></h2>}
+                    </div>
 
                 </div>
 
