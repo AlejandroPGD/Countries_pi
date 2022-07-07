@@ -77,34 +77,32 @@ router.get('/countries/:id', async (req, res) => {
 
 
 
+
 //GET /countries:
 //?retorna listado de paises
 router.get('/countries', async (req, res) => {
-
-    const countriesApi = await countries();
-    const api = countriesApi.map(c => {
-        return {
-            id: c.cca3,
-            name: c.name.common,
-            flag: c.flags[0],
-            region: c.region,
-            subregion: c.subregion || "Antartica",
-            capital: c.capital ? c.capital[0] : "none",
-            area: c.area,
-            population: c.population,
-        }
-    });
-    //console.log("AA", api);
-    //console.log("tabla", await Country.findAll());
-    //await Country.bulkCreate(api);
-    //console.log("tabladespues", await Country.findAll());
 
     //?si la bd esta vacia  la llena con los paises de la api y las actividades turisticas
     try {
         let there = await Country.findAll();
         let thereSightseeing = await Sightseeing.findAll();
-        //console.log("there", there);
-        if (!there.length) await Country.bulkCreate(api);
+
+        if (!there.length) {
+            const countriesApi = await countries();
+            const api = countriesApi.map(c => {
+                return {
+                    id: c.cca3,
+                    name: c.name.common,
+                    flag: c.flags[0],
+                    region: c.region,
+                    subregion: c.subregion || "Antartica",
+                    capital: c.capital ? c.capital[0] : "none",
+                    area: c.area,
+                    population: c.population,
+                }
+            });
+            await Country.bulkCreate(api);
+        }
         if (!thereSightseeing.length) {
             await Sightseeing.bulkCreate(sightseeing);
             //pongo actividades turisticas aleatoreas a cada pais
@@ -173,12 +171,9 @@ router.get('/countries', async (req, res) => {
                 if (!countriesFound.length) return res.status(404).send('No se encontró el pais');
                 return res.status(200).send(countriesFound)
             }
-            //return res.status(200).send(countriesFound);//res.json(countriesFound);
-
         } catch (error) {
             console.log(error);
         }
-        //     //?filtrado por continente   
         //     //todo la actividad turistica voy a filtrarla en el front
     } else if (filter) {
         try {
