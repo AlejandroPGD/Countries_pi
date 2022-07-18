@@ -16,7 +16,7 @@ export function getCountries({ name, filter, page, order, typeOrder, limit }) {
     // console.log("despacha este nombre", name)
     return async function (dispatch) {
         try {
-            let json = await axios(`http://localhost:3001/countries?name=${name}&page=${page}&order=${order}&filter=${filter}&typeOrder=${typeOrder}&limit=${limit}`);
+            let json = await axios(`/countries?name=${name}&page=${page}&order=${order}&filter=${filter}&typeOrder=${typeOrder}&limit=${limit}`);
             // console.log("llega esto ", json.data)
             return dispatch({
                 type: GET_COUNTRIES,
@@ -32,7 +32,7 @@ export function getAllCountries() {
 
     return async function (dispatch) {
         try {
-            let json = await axios(`http://localhost:3001/allCountries`);
+            let json = await axios(`/allCountries`);
             return dispatch({
                 type: ALL_COUNTRIES,
                 payload: json.data,
@@ -46,7 +46,7 @@ export function getAllCountries() {
 export function getDetails(id) {
     return async function (dispatch) {
         try {
-            let json = await axios(`http://localhost:3001/countries/${id}`);
+            let json = await axios(`/countries/${id}`);
 
             return dispatch({
                 type: GET_DETAILS,
@@ -62,7 +62,7 @@ export function getDetails(id) {
 export function getActivities() {
     return async function (dispatch) {
         try {
-            let json = await axios(`http://localhost:3001/sightseeing`);
+            let json = await axios(`/sightseeing`);
             return dispatch({
                 type: GET_ACTIVITIES,
                 payload: json.data,
@@ -75,7 +75,7 @@ export function getActivities() {
 export function setActivities(body) {
     return async function (dispatch) {
         try {
-            let json = await axios.post(`http://localhost:3001/activities`, body);
+            let json = await axios.post(`/activities`, body);
             return dispatch({
                 type: SET_ACTIVITIES,
                 payload: json.data,
