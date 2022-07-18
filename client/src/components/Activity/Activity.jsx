@@ -60,7 +60,11 @@ function Activity(props) {
         event.preventDefault();
         setInput((prevInput) => {
             if (event.target.name === "paises") {
-
+                let aux = input.countryId.filter(e => e === event.target.value);
+                if (aux.length) return {
+                    ...prevInput,
+                    created: false,
+                }
                 return {
                     ...prevInput,
                     countryId: [...input.countryId, event.target.value],

@@ -1,4 +1,4 @@
-const { Router } = require('express');
+const { Router, response } = require('express');
 const axios = require('axios');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -261,6 +261,38 @@ router.post('/activities', async (req, res) => {
         console.log(error);
     }
 })
+
+
+
+
+// router.post("/test", async (req, res) => {
+//     const { name, difficulty, duration, season } = req.body;
+//     console.log("est", req.body)
+//     try {
+//         let va = await Sightseeing.create({ name, difficulty, duration, season })
+//         res.send("created")
+//     } catch (error) {
+//         console.log(error)
+//     }
+// })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 module.exports = router;
