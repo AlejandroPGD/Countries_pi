@@ -241,7 +241,7 @@ function Home() {
                     <div className={styles.countriesContainer}>
                         {input.wait ? fil.activityFilter.map(c => {
                             return (
-                                <div key={c.id}>
+                                <div style={{ outline: "none" }} key={c.id}>
                                     <NavLink to={`/home/${c.id}`}>
                                         <CountryCard name={c.name} flag={c.flag} region={c.region} sightseeings={c.sightseeings} />
                                     </NavLink>
