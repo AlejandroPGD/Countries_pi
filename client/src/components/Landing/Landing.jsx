@@ -7,6 +7,7 @@ import styles from "./Landing.module.css"
 function Landing() {
     const dispatch = useDispatch();
     useEffect(() => {
+        dispatch(getActivities());
         dispatch(getCountries({
             name: "",
             page: 0,
@@ -18,17 +19,14 @@ function Landing() {
             activity: "",
         }));
     }, [dispatch]);
-    useEffect(() => {
-        dispatch(getActivities());
 
-    }, [dispatch]);
 
     return (
         <div className={styles.landing}>
             <div className={styles.bkg}>
                 <div className={styles.container}>
                     <div className={styles.buttonContainer}>
-                        <NavLink to='/home'>
+                        <NavLink style={{ textDecoration: 'none' }} to='/home'>
                             <button className={styles.btn}> Ingresar</button>
                         </NavLink>
 

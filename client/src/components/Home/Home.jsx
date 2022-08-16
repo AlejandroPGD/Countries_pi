@@ -43,10 +43,10 @@ function Home() {
         })
     }, [gState.name]);
 
-    let countriesFilter = gState.countries;
+    // let countriesFilter = gState.countries;
 
     useEffect(() => {
-        countriesFilter = gState.countries;
+        // countriesFilter = gState.countries;
         filtrar(input.activity);
     }, [gState.countries])
 
@@ -124,7 +124,7 @@ function Home() {
 
 
     const filtrar = (search) => {
-        const arrayFil = countriesFilter.filter(e => e.sightseeings[0].name === search);
+        const arrayFil = gState.countries.filter(e => e.sightseeings[0].name === search);
         const filt = arrayFil.slice(input.page, input.page + 9)
         setFil((prevInput) => {
             return {
@@ -174,7 +174,7 @@ function Home() {
             <div className={styles.bkg}>
                 <div className={styles.container}>
                     <div className={styles.linkContainer}>
-                        <NavLink to='/activities'><h3>Crear Actividad Turística</h3></NavLink>
+                        <NavLink style={{ textDecoration: 'none' }} to='/activities'><h3>Crear Actividad Turística</h3></NavLink>
                     </div>
                     <div className={styles.searchContainer}>
                         <SearchBar />
@@ -242,7 +242,7 @@ function Home() {
                         {input.wait ? fil.activityFilter.map(c => {
                             return (
                                 <div style={{ outline: "none" }} key={c.id}>
-                                    <NavLink to={`/home/${c.id}`}>
+                                    <NavLink style={{ textDecoration: 'none' }} to={`/home/${c.id}`}>
                                         <CountryCard name={c.name} flag={c.flag} region={c.region} sightseeings={c.sightseeings} />
                                     </NavLink>
                                 </div>
@@ -250,7 +250,7 @@ function Home() {
                         }) : allCountries?.map(c => {
                             return (
                                 <div key={c.id}>
-                                    <NavLink to={`/home/${c.id}`}>
+                                    <NavLink style={{ textDecoration: 'none' }} to={`/home/${c.id}`}>
                                         <CountryCard name={c.name} flag={c.flag} region={c.region} sightseeings={c.sightseeings} />
                                     </NavLink>
                                 </div>
